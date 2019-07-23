@@ -47,9 +47,11 @@ function createNewTaskEpic($action, $state) {
           }
         }
       };
-      console.log('objResponse', objResponse);
-
-      return Observable.fromPromise(axios.post(`http://localhost:8081/debugger-ui/`, objResponse))
+      return Observable.fromPromise(axios({ method: 'POST', url: 'https://redmine.indeema.com/issues.json', headers: {'Authorization': 'Basic ' + btoa(user_cred.username + ':' + user_cred.password)},
+      data: { issue: {
+        ...data.data
+      } } })
+        )
         .catch(handleError)
     })
     .map((result) => (
