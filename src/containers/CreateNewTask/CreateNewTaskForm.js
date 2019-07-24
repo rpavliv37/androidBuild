@@ -107,7 +107,7 @@ class CreateNewTaskForm extends React.Component {
             ))}
           </Field>
           <Field
-            name='severity'
+            name='issue_custom_field_values_27'
             component={renderDropdown}
           >
             <Picker.Item label='Severity *' value='' />
@@ -127,7 +127,7 @@ class CreateNewTaskForm extends React.Component {
               multiline: true,
               numberOfLines: 4
             }}
-            name="Pre-conditions"
+            name="issue_custom_field_values_13"
             component={renderField}
 				  />
           <Field
@@ -142,7 +142,7 @@ class CreateNewTaskForm extends React.Component {
               multiline: true,
               numberOfLines: 4
             }}
-            name="steps"
+            name="issue_custom_field_values_11"
             component={renderField}
 				  />
           <Field
@@ -152,7 +152,7 @@ class CreateNewTaskForm extends React.Component {
               icon: 'list-number',
               family: 'Foundation'
             }}
-            name="ParentTask"
+            name="parent_issue_id"
             component={renderField}
 				  />
           <Field
@@ -184,21 +184,6 @@ class CreateNewTaskForm extends React.Component {
           {/* !!! */}
           <Field
             props={{
-              placeholder: 'Steps to reproduce',
-              rounded: true,
-              icon: 'foot',
-              family: 'Foundation',
-              style: {
-                height: 100
-              },
-              multiline: true,
-              numberOfLines: 4
-            }}
-            name="steps"
-            component={renderField}
-				  />
-          <Field
-            props={{
               placeholder: 'Expected result',
               rounded: true,
               icon: 'results',
@@ -209,7 +194,7 @@ class CreateNewTaskForm extends React.Component {
               multiline: true,
               numberOfLines: 4
             }}
-            name="expectedResult"
+            name="issue_custom_field_values_12"
             component={renderField}
 				  />
           <Field
@@ -224,7 +209,7 @@ class CreateNewTaskForm extends React.Component {
               multiline: true,
               numberOfLines: 4
             }}
-            name="expectedResult"
+            name="issue_custom_field_values_14"
             component={renderField}
 				  />
           <Field
@@ -239,7 +224,7 @@ class CreateNewTaskForm extends React.Component {
               multiline: true,
               numberOfLines: 4
             }}
-            name="actualResult"
+            name="issue_custom_field_values_15"
             component={renderField}
 				  />
           <Block
@@ -263,7 +248,7 @@ class CreateNewTaskForm extends React.Component {
             <Button
               radius={27}
               shadowColor
-              color='danger'
+              color='error'
               icon='pluscircle'
               iconFamily='AntDesign'
               iconColor='white'

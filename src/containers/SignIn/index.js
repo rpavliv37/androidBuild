@@ -20,19 +20,17 @@ class SignIn extends React.Component {
 	render() {
 		const { navigate } = this.props.navigation;
 		return (
-			<React.Fragment>
-				<Block
-					flex={1}
-          safe
-					middle
-				>
-					<Logo />
-					<SignInForm 
-						goTo={navigate}
-						onSubmit={this.onSubmit} // set onSubmit actions
-					/>
-				</Block>
-			</React.Fragment>
+			<Block
+				flex={1}
+				safe
+				middle
+			>
+				<Logo />
+				<SignInForm 
+					goTo={navigate}
+					onSubmit={this.onSubmit} // set onSubmit actions
+				/>
+			</Block>
 		);
 	}
 }

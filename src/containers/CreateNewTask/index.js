@@ -17,7 +17,22 @@ class CreateNewTask extends React.Component {
 
   onSubmit = (values) => {
     const { createNewTask: _createNewTask } = this.props;
-    _createNewTask(values);
+    const result = [];
+    for(let key in values) {
+      const splittedKeys = key.split('_');
+      if(splittedKeys[0] === 'issue') {
+        result.push({
+          id: parseInt(splittedKeys[splittedKeys.length - 1]),
+          value: values[key]
+        })
+        delete values[key];
+      }
+    }
+
+    const parsedValues = {...values,
+      custom_fields: result};
+      console.log('parsedValues', parsedValues);
+    _createNewTask(parsedValues);
   }
 
   render() {

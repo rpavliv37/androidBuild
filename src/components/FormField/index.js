@@ -1,16 +1,15 @@
 import React from 'react';
-import { TextInput, View } from 'react-native';
+import {  View, TextInput } from 'react-native';
 import { Input } from 'galio-framework';
 
 const renderField = (props) => {
-	const { input: { onChange }, input } = props;
+	const { input: { onChange, value } } = props;
 	return (
-		<View>
-			<Input
-				{...props}
-				onChangeText={onChange}
-			/>
-		</View>
+		<TextInput
+			// {...props}
+			value={value}
+			onChange={onChange}
+		/>
 	);
 };
 

@@ -14,8 +14,10 @@ class TaskDetails extends React.Component {
     this.state = {
     }
   }
+
+
   render() {
-    const { task } = this.props;
+    const { task, navigation: { navigate } } = this.props;
     return (
       <React.Fragment>
         <Block>
@@ -83,13 +85,14 @@ class TaskDetails extends React.Component {
               <Button
                 radius={27}
                 shadowColor
-                color='danger'
+                color='error'
                 icon='pluscircle'
                 iconFamily='AntDesign'
                 iconColor='white'
                 style={{
                   width: 100
                 }}
+                onPress={() => navigate('LogTime')}
               >
                 Log Time
 					    </Button>
