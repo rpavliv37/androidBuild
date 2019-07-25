@@ -14,9 +14,11 @@ const NotificationList = ({ messages, deleteNotification: deleteNotificationFrom
     <Notification key={message.id} message={message} deleteNotification={deleteNotificationFromProps} />
   ));
   return (
-    <Block style={{borderWidth:1,position:'absolute',bottom:0,alignSelf:'flex-end'}}>
-      {notifications}
-    </Block>
+    <View style={{flex:1}}>
+        <View style={{borderWidth:1,position:'absolute',bottom:0,alignSelf:'flex-end'}}>
+          {notifications}
+        </View>
+    </View>
   );
 };
 

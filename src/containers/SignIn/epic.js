@@ -10,7 +10,8 @@ import {
 } from './actions';
 import { addNotification } from '../NotificationGenerator/actions';
 import axiosInstance from '../../axios';
-import {decode as atob, encode as btoa} from 'base-64'
+import {decode as atob, encode as btoa} from 'base-64';
+import { showMessage, hideMessage } from 'react-native-flash-message';
 
 
 function signInEpic($action, $state) {
@@ -26,34 +27,17 @@ function signInEpic($action, $state) {
         .catch(handleError)
         .map((result) => {
           result && result.data && navigate('Main')
+          result && result.data ? showMessage({
+            message: "You are signed in",
+            type: "success",
+          }) : showMessage({
+            message: "Invalid login or password",
+            type: "danger",
+          })
           return result && result.data ? receiveSignIn(result.data) : cancelSignIn(result)
         })
     })
-    // .map((result) => (
-
-    //   result && result.data ? receiveSignIn(result.data) : cancelSignIn(result)
-    // ));
 }
-
-
-// function receiveSignIpEpic(action$) {
-//   return (
-//     action$
-//       .ofType(SignInTypes.SIGN_IN_RECEIVED)
-//       .map((action) => action.payload)
-//       .mergeMap(({ user, needGoBack }) => Observable.of(
-//         signInCheckJWT(),
-//         needGoBack
-//           ? goBack()
-//           : push(user.role.type === 'end_user' ? '/' : '/users/'),
-//         addNotification({
-//           type: 'success',
-//           text: i18n.t('youAreIn')
-//         })
-//       )
-//       )
-//   );
-// }
 
 function cancelSignInEpic(action$) {
   return action$
@@ -76,21 +60,8 @@ function logoutEpic(action$) {
   ));
 }
 
-function signInUpdateUserEpic(action$) {
-  return action$
-    .ofType(SignInTypes.SIGN_IN_UPDATE_USER)
-    .map((action) => action.payload.user)
-    .do((user) => {
-      const language = user.language.toLowerCase();
-      changeLanguageTo(language, true);
-    })
-    .ignoreElements();
-}
-
 export default combineEpics(
   signInEpic,
   cancelSignInEpic,
-  logoutEpic,
-  signInUpdateUserEpic
-  // getListOfTasksEpic
+  logoutEpic
 );

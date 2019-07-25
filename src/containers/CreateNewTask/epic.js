@@ -5,12 +5,12 @@ import { combineEpics } from 'redux-observable';
 import { handleError } from '../../api_helper';
 import * as MainTypes from './constants';
 import {
-  saveProjectMembers, createNewTask
+  saveProjectMembers
 } from './actions';
-import { addNotification } from '../NotificationGenerator/actions';
 import axiosInstance from '../../axios';
 import {decode as atob, encode as btoa} from 'base-64';
 import axios from 'axios';
+import { showMessage, hideMessage } from 'react-native-flash-message';
 
 function getProjectMembersEpic($action, $state) {
   return $action.ofType(MainTypes.GET_PROJECT_MEMBERS)
@@ -27,9 +27,9 @@ function getProjectMembersEpic($action, $state) {
       return Observable.fromPromise(axiosInstance.get(`/projects/${project_id.project_id}/memberships.json`, objResponse))
         .catch(handleError)
     })
-    .map((result) => (
-      result && result.data ? saveProjectMembers(result.data) : saveProjectMembers(result.data)
-    ));
+    .map((result) => {
+    return result && result.data ? saveProjectMembers(result.data) : saveProjectMembers(result.data)
+    });
 }
 
 function createNewTaskEpic($action, $state) {
@@ -55,9 +55,17 @@ function createNewTaskEpic($action, $state) {
         )
         .catch(handleError)
     })
-    .map((result) => (
-      result && result.data ? console.log(result) : console.log(result)
-    ));
+    .map((result) => {
+      result && console.log('result', result);
+      result && result.statusText ? showMessage({
+        message: result.statusText,
+        type: "success"
+      }) : showMessage({
+        message: "Something went wrong",
+        type: "danger"
+      })
+      return result && result.data ? {type : 'a'} : {type : 'a'}
+    });
 }
 
 export default combineEpics(

@@ -1,4 +1,5 @@
 import React from 'react';
+import { ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { Block } from 'galio-framework';
 import Logo from '../../components/Logo';
@@ -7,7 +8,7 @@ import { receiveSignIn, signIn } from './actions';
 
 class SignIn extends React.Component {
     static navigationOptions = {
-		title: 'Welcome',
+		header: null
 	};
 	constructor(props) {
 		super(props);

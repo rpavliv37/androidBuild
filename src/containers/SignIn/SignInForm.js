@@ -5,7 +5,9 @@ import { Field, reduxForm } from 'redux-form';
 import { renderField } from '../../components/FormField'
 import { renderCheckbox } from '../../components/Checkbox';
 import '@expo/vector-icons';
- 
+import { required } from '../validation';
+
+
 export class SignInForm extends React.Component {
 	constructor(props) {
 		super(props);
@@ -15,7 +17,7 @@ export class SignInForm extends React.Component {
     const { handleSubmit, goTo } = this.props;
 		return (
 			<Block
-				flex={2}
+				// flex={2}
 				style={{
 					paddingLeft: 20,
 					paddingRight: 20
@@ -23,17 +25,18 @@ export class SignInForm extends React.Component {
 			>
 				<Field
 					props={{
-						placeholder: 'Login',
+						placeholder: 'Login *',
 						rounded: true,
 						icon: 'user',
 						family: 'Entypo'
 					}}
 					component={renderField}
 					name="username"
+					validate={[required]}
 				/>
 				<Field
 					props={{
-						placeholder: 'Password',
+						placeholder: 'Password *',
 						rounded: true,
 						icon: 'lock',
 						family: 'Entypo',
@@ -42,6 +45,7 @@ export class SignInForm extends React.Component {
 					}}
 					name="password"
 					component={renderField}
+					validate={[required]}
 				/>
 				<Block
 					space='between'

@@ -29,14 +29,15 @@ class CreateNewTask extends React.Component {
       }
     }
 
-    const parsedValues = {...values,
-      custom_fields: result};
+    const parsedValues = {...values};
+      if(result.length > 0) parsedValues.custom_fields = result;
       console.log('parsedValues', parsedValues);
     _createNewTask(parsedValues);
   }
 
   render() {
     const { all_tasks, getProjectMembers, projectMembers } = this.props;
+    const { navigate } = this.props.navigation;
     const projects = (all_tasks && getProjectsFromList(all_tasks)) || [];
     return (
       <ScrollView>
@@ -45,6 +46,7 @@ class CreateNewTask extends React.Component {
             getMembers={getProjectMembers}
             projectMembers={projectMembers}
             onSubmit={this.onSubmit}
+            goTo={navigate}
           />
       </ScrollView>
     );

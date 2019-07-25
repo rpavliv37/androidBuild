@@ -8,6 +8,7 @@ import { renderField } from '../../components/FormField';
 import { renderDatePicker } from '../../components/Datepicker';
 import { trackerList, statussesList, priorityList, severityList } from './dropdownOptions';
 import shortid from 'shortid';
+import { required } from '../validation';
 
 class CreateNewTaskForm extends React.Component {
   constructor(props) {
@@ -21,7 +22,7 @@ class CreateNewTaskForm extends React.Component {
   }
 
   render() {
-    const { handleSubmit, projects, getMembers, projectMembers} = this.props;
+    const { handleSubmit, projects, getMembers, projectMembers, goTo} = this.props;
     const _projectMembers = projectMembers || [];
     return (
         <Block
@@ -36,6 +37,7 @@ class CreateNewTaskForm extends React.Component {
           <Field
             name='tracker_id'
             component={renderDropdown}
+            validate={[required]}
           >
             <Picker.Item label='Tracker *' value='' />
             {trackerList.map((item) => (
@@ -51,6 +53,7 @@ class CreateNewTaskForm extends React.Component {
             }}
             name="subject"
             component={renderField}
+            validate={[required]}
 				  />
           <Field
             props={{
@@ -70,6 +73,7 @@ class CreateNewTaskForm extends React.Component {
           <Field
             name='status_id'
             component={renderDropdown}
+            validate={[required]}
           >
             <Picker.Item label='Status *' value='' />
             {statussesList.map((item) => (
@@ -79,6 +83,7 @@ class CreateNewTaskForm extends React.Component {
           <Field
             name='priority_id'
             component={renderDropdown}
+            validate={[required]}
           >
             <Picker.Item label='Priority *' value='' />
             {priorityList.map((item) => (
@@ -91,6 +96,7 @@ class CreateNewTaskForm extends React.Component {
             props={{
               getMembers: getMembers
             }}
+            validate={[required]}
           >
             <Picker.Item label='Project *' value='' />
             {projects && projects.map((item) => (
@@ -115,7 +121,7 @@ class CreateNewTaskForm extends React.Component {
               <Picker.Item label={item} value={item} key={shortid.generate()} />
             ))}
           </Field>
-          <Field
+          {/* <Field
             props={{
               placeholder: 'Pre-conditions',
               rounded: true,
@@ -129,8 +135,8 @@ class CreateNewTaskForm extends React.Component {
             }}
             name="issue_custom_field_values_13"
             component={renderField}
-				  />
-          <Field
+				  /> */}
+          {/* <Field
             props={{
               placeholder: 'Steps to reproduce',
               rounded: true,
@@ -144,8 +150,8 @@ class CreateNewTaskForm extends React.Component {
             }}
             name="issue_custom_field_values_11"
             component={renderField}
-				  />
-          <Field
+				  /> */}
+          {/* <Field
             props={{
               placeholder: 'Parent task',
               rounded: true,
@@ -154,7 +160,7 @@ class CreateNewTaskForm extends React.Component {
             }}
             name="parent_issue_id"
             component={renderField}
-				  />
+				  /> */}
           <Field
             label='Start date'
             component={renderDatePicker}
@@ -197,7 +203,7 @@ class CreateNewTaskForm extends React.Component {
             name="issue_custom_field_values_12"
             component={renderField}
 				  />
-          <Field
+          {/* <Field
             props={{
               placeholder: 'Environment',
               rounded: true,
@@ -211,8 +217,8 @@ class CreateNewTaskForm extends React.Component {
             }}
             name="issue_custom_field_values_14"
             component={renderField}
-				  />
-          <Field
+				  /> */}
+          {/* <Field
             props={{
               placeholder: 'Actual result',
               rounded: true,
@@ -226,7 +232,7 @@ class CreateNewTaskForm extends React.Component {
             }}
             name="issue_custom_field_values_15"
             component={renderField}
-				  />
+				  /> */}
           <Block
             row
             space='between'
@@ -255,6 +261,7 @@ class CreateNewTaskForm extends React.Component {
               style={{
                 width: 150
               }}
+              onPress={() => goTo('Main')}
             >
               Cancel
 					</Button>
