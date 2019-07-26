@@ -14,8 +14,6 @@ import CreateNewTask from './src/containers/CreateNewTask';
 import reducers from './src/containers/reducers';
 import LogTime from './src/containers/LogTime';
 import FlashMessage from "react-native-flash-message";
-// import { AppLoading, Asset, Font } from 'expo';
-// import { Entypo } from '@expo/vector-icons';
 
 global.XMLHttpRequest = global.originalXMLHttpRequest
   ? global.originalXMLHttpRequest
@@ -40,6 +38,8 @@ if (window.__FETCH_SUPPORT__) {
     : global.FileReader
 }
 
+console.disableYellowBox = true;
+
 const epicMiddleware = createEpicMiddleware(rootEpic);
 
 const initialState = {};
@@ -60,11 +60,6 @@ const MainNavigator = createStackNavigator({
   LogTime: {screen: LogTime}
 });
 
-// function cacheFonts(fonts) {
-//   return fonts.map(font => Font.loadAsync(font));
-// }
-
-
 const AppNavigator = createAppContainer(MainNavigator);
 
 class App extends React.Component{
@@ -72,21 +67,7 @@ class App extends React.Component{
     isReady: false,
   };
 
-  // async _loadAssetsAsync() {
-  //   const fontAssets = cacheFonts([Entypo.font]);
-
-  //   await Promise.all([...fontAssets]);
-  // }
   render() {
-    // if (!this.state.isReady) {
-    //   return (
-    //     <AppLoading
-    //       startAsync={this._loadAssetsAsync}
-    //       onFinish={() => this.setState({ isReady: true })}
-    //       onError={console.warn}
-    //     />
-    //   );
-    // }
     return (
       <Provider store={ store } >
         <AppNavigator />

@@ -1,11 +1,15 @@
 import React from 'react';
+import { Picker } from 'react-native';
 import { connect } from 'react-redux';
 import { Button, Block } from 'galio-framework';
 import { Field, reduxForm } from 'redux-form';
 import { renderField } from '../../components/FormField'
 import { renderDatePicker } from '../../components/Datepicker';
-import '@expo/vector-icons';
- 
+import { renderDropdown } from '../../components/Dropdown';
+import activityList from './activityList';
+import { required } from '../validation';
+import shortid from 'shortid';
+
 export class LogTimeForm extends React.Component {
 	constructor(props) {
 		super(props);
@@ -27,7 +31,7 @@ export class LogTimeForm extends React.Component {
 					props={{
 						placeholder: 'Task',
 						rounded: true,
-						icon: 'user',
+						icon: 'text',
 						family: 'Entypo'
 					}}
 					component={renderField}
@@ -37,6 +41,7 @@ export class LogTimeForm extends React.Component {
           label='Date *'
           component={renderDatePicker}
           name="spent_on"
+          validate={[required]}
         />
         <Field
           props={{
@@ -48,17 +53,28 @@ export class LogTimeForm extends React.Component {
           }}
           name="hours"
           component={renderField}
+          validate={[required]}
 				/>
         <Field
 					props={{
 						placeholder: 'Comment',
 						rounded: true,
-						icon: 'user',
-						family: 'Entypo'
+						icon: 'comment',
+						family: 'FontAwesome'
 					}}
 					component={renderField}
 					name="comments"
 				/>
+        <Field
+          name='activity_id'
+          component={renderDropdown}
+          validate={[required]}
+        >
+          <Picker.Item label='Activity *' value='' />
+          {activityList.map((item) => (
+            <Picker.Item label={item.name} value={item.id} key={shortid.generate()} />
+          ))}
+        </Field>
         <Block
           row
           space='between'

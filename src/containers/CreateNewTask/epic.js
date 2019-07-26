@@ -10,7 +10,7 @@ import {
 import axiosInstance from '../../axios';
 import {decode as atob, encode as btoa} from 'base-64';
 import axios from 'axios';
-import { showMessage, hideMessage } from 'react-native-flash-message';
+import { showMessage } from 'react-native-flash-message';
 
 function getProjectMembersEpic($action, $state) {
   return $action.ofType(MainTypes.GET_PROJECT_MEMBERS)
@@ -48,10 +48,10 @@ function createNewTaskEpic($action, $state) {
         }
       };
       console.log('objResponse', objResponse);
-      return Observable.fromPromise(axios({ method: 'POST', url: 'https://redmine.indeema.com/issues.json', headers: {'Authorization': 'Basic ' + btoa(user_cred.username + ':' + user_cred.password)},
-      data: { issue: {
-        ...data.data
-      } } })
+      return Observable.fromPromise(axios({ method: 'POST',
+        url: 'https://redmine.indeema.com/issues.json',
+        headers: {'Authorization': 'Basic ' + btoa(user_cred.username + ':' + user_cred.password)},
+        data: { issue: {...data.data} } })
         )
         .catch(handleError)
     })

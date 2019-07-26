@@ -12,9 +12,12 @@ class LogTime extends React.Component {
 		super(props);
 		this.state = {};
 	}
-	onSubmit = (values) => {
-		const { signIn: signInProps, navigation } = this.props;
-    signInProps(values, navigation.navigate);
+  onSubmit = (values) => {
+    const { logTime: _logTime } = this.props;
+    const parsedValues = {...values};
+    parsedValues.hours = parseInt(parsedValues.hours);
+    parsedValues.spent_on = new Date(parsedValues.spent_on).toISOString().substring(0, 10);
+    _logTime(parsedValues);
   }
 	render() {
     const { initialValues } = this.props;
@@ -22,15 +25,13 @@ class LogTime extends React.Component {
 		return (
       <Block
         flex={1}
-        // safe
-        // middle
       >
-      <LogTimeForm
-        goTo={navigate}
-        onSubmit={this.onSubmit}
-        initialValues={initialValues}
-        enableReinitialize
-      />
+        <LogTimeForm
+          goTo={navigate}
+          onSubmit={this.onSubmit}
+          initialValues={initialValues}
+          enableReinitialize
+        />
       </Block>
 		);
 	}
@@ -39,7 +40,8 @@ class LogTime extends React.Component {
 function mapStateToProps(state) {
   return {
     initialValues: {
-      issue_id: state.selected_task.id }
+      issue_id: state.main.selected_task.id,
+      spent_on: ''}
   }
 }
 

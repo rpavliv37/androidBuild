@@ -26,12 +26,12 @@ class CreateNewTask extends React.Component {
           value: values[key]
         })
         delete values[key];
+      } if (key === 'start_date' || key === 'due_date') {
+        values[key] = new Date(values[key]).toISOString().substring(0, 10);
       }
     }
-
     const parsedValues = {...values};
       if(result.length > 0) parsedValues.custom_fields = result;
-      console.log('parsedValues', parsedValues);
     _createNewTask(parsedValues);
   }
 

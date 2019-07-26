@@ -1,9 +1,9 @@
 import React from 'react';
 import _ from 'lodash';
 import { connect } from 'react-redux';
-import { Picker, TouchableOpacity, ScrollView } from 'react-native';
-import Expand from 'react-native-simple-expand';
-import { Input, Button, Card, Block, Text, Icon, Navbar } from 'galio-framework';
+import { ScrollView } from 'react-native';
+import { Button, Block, Text } from 'galio-framework';
+import { watchTask } from './actions';
 
 class TaskDetails extends React.Component {
   static navigationOptions = {
@@ -14,10 +14,8 @@ class TaskDetails extends React.Component {
     this.state = {
     }
   }
-
-
   render() {
-    const { task, navigation: { navigate } } = this.props;
+    const { task, navigation: { navigate }, watchTask: _watchTask } = this.props;
     return (
       <React.Fragment>
         <Block>
@@ -96,7 +94,7 @@ class TaskDetails extends React.Component {
               >
                 Log Time
 					    </Button>
-              <Button
+              {/* <Button
                 radius={27}
                 shadowColor
                 color='warning'
@@ -106,9 +104,10 @@ class TaskDetails extends React.Component {
                 style={{
                   width: 100
                 }}
+                onPress={() => _watchTask()}
               >
                 Watch
-					    </Button>
+					    </Button> */}
             </Block>
             <Block
               borderWidth={1}
@@ -220,5 +219,6 @@ function mapStateToProps(state) {
 export default connect(
   mapStateToProps,
   {
+    watchTask
   }
 )(TaskDetails);

@@ -3,35 +3,40 @@ import { View, Picker, Text } from 'react-native';
 
 const renderDropdown = (props) => {
   const { input: { onChange, value, ...inputProps }, children, getMembers, meta: { touched, error }, ...pickerProps } = props;
-	return (
+  return (
     <View>
       <Picker
-        style={{ height: 50, width: 'auto' }}
-        selectedValue={ value }
-        onValueChange={value => {
-          requestAnimationFrame(() => {
-            if (getMembers) {
-              getMembers(value);
-            }
-            onChange(value);
-          });
+        style={{
+          height: 50,
+          width: 'auto'
         }}
-        { ...inputProps }
-        { ...pickerProps }
+      selectedValue={value}
+      onValueChange={value => {
+        requestAnimationFrame(() => {
+          if (getMembers) {
+            getMembers(value);
+          }
+          onChange(value);
+        });
+      }}
+      {...inputProps}
+      {...pickerProps}
       >
         {children}
       </Picker>
-      {touched && error && (
-			<Text
-				color='red'
-				style={{
-					marginLeft: 10,
-					marginTop: -7
-				}}
-			>
-				{error}
-			</Text> )}
-    </View>
+      {
+  touched && error && (
+    <Text
+      color='red'
+      style={{
+        marginLeft: 10,
+        marginTop: -7
+      }}
+    >
+      {error}
+    </Text>)
+  }
+    </View >
 	);
 };
 

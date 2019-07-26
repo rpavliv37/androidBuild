@@ -163,6 +163,7 @@ class CreateNewTaskForm extends React.Component {
 				  /> */}
           <Field
             label='Start date'
+            defaultDate={new Date()}
             component={renderDatePicker}
             name="start_date"
           />
@@ -273,5 +274,5 @@ class CreateNewTaskForm extends React.Component {
 
 
 export default reduxForm({
-  form: 'createTaskForm'
+  form: 'createTaskForm', initialValues: {start_date: new Date()}
 })(CreateNewTaskForm);
