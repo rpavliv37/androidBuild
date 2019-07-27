@@ -39,29 +39,15 @@ function signInEpic($action, $state) {
     })
 }
 
-function cancelSignInEpic(action$) {
-  return action$
-    .ofType(SignInTypes.SIGN_IN_CANCELED)
-    .map((action) => action.payload.message)
-    .switchMap((message) => Observable.of(
-      addNotification({
-        type: 'error',
-        text: message
-      })
-    ));
-}
-
-function logoutEpic(action$) {
-  return action$.ofType(SignInTypes.USER_LOGOUT).switchMap(() => Observable.of(
-    addNotification({
-      type: 'success',
-      text: i18n.t('youAreOut')
-    })
-  ));
-}
+// function logoutEpic(action$) {
+//   return action$.ofType(SignInTypes.USER_LOGOUT).switchMap(() => Observable.of(
+//     addNotification({
+//       type: 'success',
+//       text: i18n.t('youAreOut')
+//     })
+//   ));
+// }
 
 export default combineEpics(
-  signInEpic,
-  cancelSignInEpic,
-  logoutEpic
+  signInEpic
 );

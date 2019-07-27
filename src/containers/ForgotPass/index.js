@@ -5,7 +5,11 @@ import ForgotPassForm from './ForgotPassForm';
 
 export default class ForgotPass extends React.Component {
 	static navigationOptions = {
-    title: 'Forgot Password',
+		title: 'Forgot Password',
+		headerStyle: {
+      backgroundColor: 'black',
+    },
+    headerTintColor: '#fff',
   };
   constructor(props) {
     super(props);

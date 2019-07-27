@@ -9,6 +9,10 @@ import { getProjectMembers, createNewTask } from './actions';
 class CreateNewTask extends React.Component {
   static navigationOptions = {
     title: 'Create new task',
+    headerStyle: {
+      backgroundColor: 'black',
+    },
+    headerTintColor: '#fff'
   };
   constructor(props) {
     super(props);

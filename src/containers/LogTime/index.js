@@ -4,44 +4,53 @@ import { Block } from 'galio-framework';
 import LogTimeForm from './LogTimeForm';
 import { logTime } from './actions';
 
+const date = new Date();
+
 class LogTime extends React.Component {
-    static navigationOptions = {
-		title: 'Log Time',
-	};
-	constructor(props) {
-		super(props);
-		this.state = {};
-	}
+  static navigationOptions = {
+    title: 'Log Time',
+    headerStyle: {
+      backgroundColor: 'black',
+    },
+    headerTintColor: '#fff',
+    headerLeft: null
+  };
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
   onSubmit = (values) => {
     const { logTime: _logTime } = this.props;
-    const parsedValues = {...values};
+    const parsedValues = { ...values };
     parsedValues.hours = parseInt(parsedValues.hours);
-    parsedValues.spent_on = new Date(parsedValues.spent_on).toISOString().substring(0, 10);
-    _logTime(parsedValues);
+    parsedValues.spent_on = new Date(parsedValues.spent_on).toLocaleDateString().split('.').reverse().join('-');
+    console.log('parsedValues', parsedValues);
+    // _logTime(parsedValues);
   }
-	render() {
+  render() {
     const { initialValues } = this.props;
-		const { navigate } = this.props.navigation;
-		return (
+    const { goBack } = this.props.navigation;
+    return (
       <Block
         flex={1}
       >
         <LogTimeForm
-          goTo={navigate}
+          goTo={goBack}
           onSubmit={this.onSubmit}
           initialValues={initialValues}
           enableReinitialize
         />
       </Block>
-		);
-	}
+    );
+  }
 }
 
 function mapStateToProps(state) {
   return {
     initialValues: {
       issue_id: state.main.selected_task.id,
-      spent_on: ''}
+      spent_on: date
+    }
   }
 }
 

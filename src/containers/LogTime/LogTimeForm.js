@@ -103,6 +103,7 @@ export class LogTimeForm extends React.Component {
             style={{
               width: 150
             }}
+            onPress={() => goTo()}
           >
             Cancel
           </Button>

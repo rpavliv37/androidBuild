@@ -1,5 +1,6 @@
 import React from 'react';
 import logger from 'redux-logger'
+import { Icon } from 'galio-framework';
 import { createLogger } from 'redux-logger';
 import {createStackNavigator, createAppContainer} from 'react-navigation';
 import { createEpicMiddleware } from 'redux-observable';
@@ -50,9 +51,14 @@ const middlewares = [
 const store = createStore(reducers, initialState, compose(applyMiddleware(...middlewares)));
 
 const MainNavigator = createStackNavigator({
-  Home: {screen: SignIn,
-  header: null},
-  Main: {screen: Main},
+  Home: {
+    screen: SignIn,
+    header: null
+  },
+  Main: {
+    screen: Main,
+    header: null
+  },
   SignIn: { screen: SignIn},
   ForgotPass: {screen: ForgotPass},
   TaskDetails: {screen: TaskDetails},

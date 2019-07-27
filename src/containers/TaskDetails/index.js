@@ -8,6 +8,10 @@ import { watchTask } from './actions';
 class TaskDetails extends React.Component {
   static navigationOptions = {
     title: 'TaskDetails',
+    headerStyle: {
+      backgroundColor: 'black',
+    },
+    headerTintColor: '#fff'
   };
   constructor(props) {
     super(props);

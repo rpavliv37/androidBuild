@@ -5,14 +5,15 @@ import shortid from 'shortid';
 import {Picker, TouchableOpacity, ScrollView } from 'react-native';
 import Expand from 'react-native-simple-expand';
 import { calcSpentTime, getStatusesFromList, getProjectsFromList, filterTasks } from './utils';
-import { Input, Button, Card, Block, Text, Icon, Navbar } from 'galio-framework';
+import { Button, Block, Text, Icon } from 'galio-framework';
 import { getTodaySpentTime, getAllListOfTasks, getSelectedTask } from './actions';
+import { logOut } from '../SignIn/actions';
 
 class Main extends React.Component {
 	static navigationOptions = {
-    title: 'Main',
-	};
-
+		headerLeft: null,
+		header: null
+  };
   constructor(props) {
     super(props);
 		this.state = {
@@ -33,6 +34,11 @@ class Main extends React.Component {
 		this.setState({status: itemValue})
 	}
 
+	handleOnLogout = () => {
+		this.props.navigation.navigate('SignIn');
+		this.props.logOut();
+	}
+
 	render() {
 		const { all_tasks, navigation, spent_time, getSelectedTask } = this.props;
 		const statuses = (all_tasks && getStatusesFromList(all_tasks)) || [];
@@ -40,15 +46,16 @@ class Main extends React.Component {
     return (
 			<React.Fragment>
 					<Block
-						right
+						row
+						space='between'
 						style={{
 							paddingTop: 12,
 							paddingBottom: 12,
 							paddingLeft: 20,
 							paddingRight: 20,
-							backgroundColor: '#677178',
-							borderBottomWidth: 1,
-							borderBottomColor: 'rgba(0, 0, 0, 0.125)'
+							backgroundColor: 'black',
+							// borderBottomWidth: 1,
+							// borderBottomColor: 'rgba(0, 0, 0, 0.125)'
 						}}
 					>
 						<Text
@@ -57,6 +64,11 @@ class Main extends React.Component {
 						>
 							Today spent time: { spent_time && calcSpentTime(spent_time)}h
 						</Text>
+						<TouchableOpacity
+							onPress={() => this.handleOnLogout()}
+						>
+							<Icon name="exit-to-app" family="Ionicons" color='#fff' size={40} />
+						</TouchableOpacity>
 					</Block>
 					<ScrollView>
 				<Block
@@ -263,6 +275,7 @@ export default connect(
   {
 		getAllListOfTasks,
 		getTodaySpentTime,
-		getSelectedTask
+		getSelectedTask,
+		logOut
   }
 )(Main);
