@@ -1,12 +1,12 @@
 import { Observable } from 'rxjs';
 import _ from 'lodash';
-import moment from 'moment';
 import { combineEpics } from 'redux-observable';
 import { handleError } from '../../api_helper';
 import * as MainTypes from './constants';
 import {
   saveProjectMembers
 } from './actions';
+import { getAllListOfTasks, getSelectedTask } from '../Main/actions'
 import axiosInstance from '../../axios';
 import {decode as atob, encode as btoa} from 'base-64';
 import axios from 'axios';
@@ -22,7 +22,6 @@ function getProjectMembersEpic($action, $state) {
           'Authorization': 'Basic ' + btoa(user_cred.username + ':' + user_cred.password)
         }
       };
-      console.log('objResponse!!!', objResponse);
 
       return Observable.fromPromise(axiosInstance.get(`/projects/${project_id.project_id}/memberships.json`, objResponse))
         .catch(handleError)
@@ -47,7 +46,6 @@ function createNewTaskEpic($action, $state) {
           }
         }
       };
-      console.log('objResponse', objResponse);
       return Observable.fromPromise(axios({ method: 'POST',
         url: 'https://redmine.indeema.com/issues.json',
         headers: {'Authorization': 'Basic ' + btoa(user_cred.username + ':' + user_cred.password)},
@@ -56,7 +54,6 @@ function createNewTaskEpic($action, $state) {
         .catch(handleError)
     })
     .map((result) => {
-      result && console.log('result', result);
       result && result.statusText ? showMessage({
         message: result.statusText,
         type: "success"
@@ -64,7 +61,7 @@ function createNewTaskEpic($action, $state) {
         message: "Something went wrong",
         type: "danger"
       })
-      return result && result.data ? {type : 'a'} : {type : 'a'}
+      return (result && result.data) ?  getSelectedTask(result.data.issue) : {type : 'a'}
     });
 }
 

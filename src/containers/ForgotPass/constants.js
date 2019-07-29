@@ -1,0 +1,1 @@
+export const RESTORE_PASSWORD = 'RESTORE_PASSWORD';

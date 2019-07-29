@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import shortid from 'shortid';
-import {Picker, TouchableOpacity, ScrollView } from 'react-native';
+import {Picker, TouchableOpacity, ScrollView, BackHandler } from 'react-native';
 import Expand from 'react-native-simple-expand';
 import { calcSpentTime, getStatusesFromList, getProjectsFromList, filterTasks } from './utils';
 import { Button, Block, Text, Icon } from 'galio-framework';
@@ -25,7 +25,14 @@ class Main extends React.Component {
 	componentDidMount() {
 		this.props.getAllListOfTasks();
 		this.props.getTodaySpentTime();
+		BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
 	}
+
+	componentWillUnmount() {
+		BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+}
+
+handleBackButton = () => true; // disable back button
 
 	handleOnChangeProjectPicker = (itemValue) => {
 		this.setState({project: itemValue})
@@ -48,19 +55,20 @@ class Main extends React.Component {
 					<Block
 						row
 						space='between'
+						middle
 						style={{
-							paddingTop: 12,
-							paddingBottom: 12,
 							paddingLeft: 20,
 							paddingRight: 20,
 							backgroundColor: 'black',
-							// borderBottomWidth: 1,
-							// borderBottomColor: 'rgba(0, 0, 0, 0.125)'
+							height: 56
 						}}
 					>
 						<Text
-							h4
 							color='white'
+							style={{
+								fontSize: 20,
+								fontWeight: '500'
+							}}
 						>
 							Today spent time: { spent_time && calcSpentTime(spent_time)}h
 						</Text>

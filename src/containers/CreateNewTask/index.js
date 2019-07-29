@@ -5,6 +5,7 @@ import { ScrollView } from 'react-native';
 import CreateNewTaskForm from './CreateNewTaskForm';
 import { getProjectsFromList } from '../Main/utils';
 import { getProjectMembers, createNewTask } from './actions';
+import { getAllListOfTasks } from '../Main/actions';
 
 class CreateNewTask extends React.Component {
   static navigationOptions = {
@@ -18,9 +19,9 @@ class CreateNewTask extends React.Component {
     super(props);
     this.state = {};
   }
-
   onSubmit = (values) => {
-    const { createNewTask: _createNewTask } = this.props;
+    const { createNewTask: _createNewTask, getAllListOfTasks: _getAllListOfTasks } = this.props;
+    const { navigate } = this.props.navigation;
     const result = [];
     for(let key in values) {
       const splittedKeys = key.split('_');
@@ -37,6 +38,8 @@ class CreateNewTask extends React.Component {
     const parsedValues = {...values};
       if(result.length > 0) parsedValues.custom_fields = result;
     _createNewTask(parsedValues);
+    _getAllListOfTasks();
+    navigate('TaskDetails');
   }
 
   render() {
@@ -69,6 +72,7 @@ export default connect(
   mapStateToProps,
   {
     getProjectMembers,
-    createNewTask
+    createNewTask,
+    getAllListOfTasks
   }
 )(CreateNewTask);

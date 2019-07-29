@@ -29,7 +29,7 @@ export class ForgotPassForm extends React.Component {
           type: 'email-address'
         }}
         component={renderField}
-        name="email"
+        name="mail"
       />
       <TouchableOpacity
 				onPress={handleSubmit}
