@@ -2,7 +2,7 @@ import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import { Button, Checkbox, Block, Text } from 'galio-framework';
 import { Field, reduxForm } from 'redux-form';
-import { renderField } from '../../components/FormField'
+import { renderField } from '../../components/FormField/renderField'
 import { renderCheckbox } from '../../components/Checkbox';
 import '@expo/vector-icons';
 import { required } from '../validation';

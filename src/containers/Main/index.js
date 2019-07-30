@@ -6,7 +6,7 @@ import {Picker, TouchableOpacity, ScrollView, BackHandler } from 'react-native';
 import Expand from 'react-native-simple-expand';
 import { calcSpentTime, getStatusesFromList, getProjectsFromList, filterTasks } from './utils';
 import { Button, Block, Text, Icon } from 'galio-framework';
-import { getTodaySpentTime, getAllListOfTasks, getSelectedTask } from './actions';
+import { getTodaySpentTime, getAllListOfTasks, getSelectedTask, saveAllListOfTasks } from './actions';
 import { logOut } from '../SignIn/actions';
 
 class Main extends React.Component {
@@ -23,13 +23,26 @@ class Main extends React.Component {
 	}
 
 	componentDidMount() {
-		this.props.getAllListOfTasks();
-		this.props.getTodaySpentTime();
-		BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+		this.didFocusSubscription = this.props.navigation.addListener(
+			'didFocus',
+			() => {
+				this.props.getAllListOfTasks();
+				this.props.getTodaySpentTime();
+				BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+			}
+		);
+		const didBlurSubscription = this.props.navigation.addListener(
+			'didBlur',
+			() => {
+				this.props.saveAllListOfTasks({})
+				BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+			}
+		);
 	}
 
 	componentWillUnmount() {
-		BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+		this.didFocusSubscription.remove();
+		this.didBlurSubscription.remove();
 }
 
 handleBackButton = () => true; // disable back button
@@ -284,6 +297,7 @@ export default connect(
 		getAllListOfTasks,
 		getTodaySpentTime,
 		getSelectedTask,
-		logOut
+		logOut,
+		saveAllListOfTasks
   }
 )(Main);

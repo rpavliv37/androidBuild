@@ -4,7 +4,7 @@ import { Input, Button, Card, Block, Text, Icon, Navbar } from 'galio-framework'
 import { DatePicker, Text as NativeBaseText } from 'native-base';
 import { Field, reduxForm } from 'redux-form';
 import { renderDropdown } from '../../components/Dropdown';
-import { renderField } from '../../components/FormField';
+import { renderField } from '../../components/FormField/renderField';
 import { renderDatePicker } from '../../components/Datepicker';
 import { trackerList, statussesList, priorityList, severityList } from './dropdownOptions';
 import shortid from 'shortid';

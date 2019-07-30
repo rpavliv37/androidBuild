@@ -1,8 +1,6 @@
 import * as actionTypes from './constants';
 
-const initialState = {
-    verifyingJWT: true
-  };
+const initialState = {};
   
 export default (state = initialState, action = {}) => {
   switch (action.type) {

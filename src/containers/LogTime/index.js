@@ -23,6 +23,7 @@ class LogTime extends React.Component {
     const { logTime: _logTime } = this.props;
     const parsedValues = { ...values };
     parsedValues.hours = parseInt(parsedValues.hours);
+    parsedValues.issue_id = parseInt(parsedValues.issue_id)
     parsedValues.spent_on = new Date(parsedValues.spent_on).toLocaleDateString().split('.').reverse().join('-');
     console.log('parsedValues', parsedValues);
     // _logTime(parsedValues);

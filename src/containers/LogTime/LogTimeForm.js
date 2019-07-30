@@ -3,12 +3,13 @@ import { Picker } from 'react-native';
 import { connect } from 'react-redux';
 import { Button, Block } from 'galio-framework';
 import { Field, reduxForm } from 'redux-form';
-import { renderField } from '../../components/FormField'
+import { renderField } from '../../components/FormField/renderField'
 import { renderDatePicker } from '../../components/Datepicker';
 import { renderDropdown } from '../../components/Dropdown';
 import activityList from './activityList';
 import { required } from '../validation';
 import shortid from 'shortid';
+import _ from 'lodash';
 
 export class LogTimeForm extends React.Component {
 	constructor(props) {
@@ -16,7 +17,7 @@ export class LogTimeForm extends React.Component {
 		this.state = {};
 	}
 	render() {
-    const { handleSubmit, goTo } = this.props;
+    const { handleSubmit, goTo, task_id } = this.props;
 		return (
       <Block
         style={{
@@ -32,7 +33,9 @@ export class LogTimeForm extends React.Component {
 						placeholder: 'Task',
 						rounded: true,
 						icon: 'text',
-						family: 'Entypo'
+            family: 'Entypo',
+            keyboardType: 'numeric',
+            defaultValue: task_id + ''
 					}}
 					component={renderField}
 					name="issue_id"
@@ -118,6 +121,7 @@ const form = reduxForm({
 })(LogTimeForm);
 
 const mapStateToProps = (state) => ({
+  task_id: _.get(state, ['form', 'logTimeForm', 'initial', 'issue_id'])
 });
 
 export default connect(mapStateToProps)(form);
