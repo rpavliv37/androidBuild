@@ -127,6 +127,21 @@ class TaskDetails extends React.Component {
                       Description: {task.description}
                     </Text>
                   </Block>)}
+                  {(task.total_spent_hours !== '') &&
+                  (<Block
+                    style={{
+                      paddingTop: 12,
+                      paddingBottom: 12,
+                      paddingLeft: 20,
+                      paddingRight: 20
+                    }}
+                  >
+                    <Text
+                      color='white'
+                    >
+                      Spent time: {Math.round(task.total_spent_hours * 100) / 100} h
+                    </Text>
+                  </Block>)}
                 <Block
                   row
                   space='between'

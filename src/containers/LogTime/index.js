@@ -20,13 +20,15 @@ class LogTime extends React.Component {
     this.state = {};
   }
   onSubmit = (values) => {
-    const { logTime: _logTime } = this.props;
+    const { logTime: _logTime, navigation } = this.props;
+    const { navigate } = navigation;
     const parsedValues = { ...values };
-    parsedValues.hours = parseInt(parsedValues.hours);
+    parsedValues.hours = parseFloat(parsedValues.hours);
     parsedValues.issue_id = parseInt(parsedValues.issue_id)
     parsedValues.spent_on = new Date(parsedValues.spent_on).toLocaleDateString().split('.').reverse().join('-');
     console.log('parsedValues', parsedValues);
-    // _logTime(parsedValues);
+    _logTime(parsedValues);
+    navigate('TaskDetails');
   }
   render() {
     const { initialValues } = this.props;

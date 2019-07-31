@@ -1,3 +1,4 @@
 export const GET_PROJECT_MEMBERS = 'GET_PROJECT_MEMBERS';
 export const SAVE_PROJECT_MEMBERS = 'SAVE_PROJECT_MEMBERS';
 export const EDIT_TASK = 'EDIT_TASK';
+export const GET_TASK_BY_ID = 'GET_TASK_BY_ID';

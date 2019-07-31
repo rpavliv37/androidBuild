@@ -3,9 +3,7 @@ import _ from 'lodash';
 import { combineEpics } from 'redux-observable';
 import { handleError } from '../../api_helper';
 import * as MainTypes from './constants';
-import {
-  saveProjectMembers
-} from './actions';
+import { saveProjectMembers, getTaskById } from './actions';
 import { getAllListOfTasks, getSelectedTask } from '../Main/actions'
 import axiosInstance from '../../axios';
 import {decode as atob, encode as btoa} from 'base-64';
@@ -55,6 +53,8 @@ function EditTaskEpic($action, $state) {
         .catch(handleError)
     })
     .map((result) => {
+      const { main: { selected_task: { id } } } = $state.getState();
+      console.log('id', id);
       result && result.statusText ? showMessage({
         message: 'Task was saved!',
         type: "success"
@@ -62,11 +62,31 @@ function EditTaskEpic($action, $state) {
         message: "Something went wrong",
         type: "danger"
       })
-      return (result && result.data) ?  getSelectedTask(result.data.issue) : {type : 'a'}
+      return result ? getTaskById(id) : {type : 'a'}
+    });
+}
+
+function getTaskByIdEpic($action, $state) {
+  return $action.ofType(MainTypes.GET_TASK_BY_ID)
+    .map((action) => action.payload)
+    .switchMap((id) => {
+      const { signIn: { user_cred } } = $state.getState();
+      const objResponse = {
+        headers: {
+          'Authorization': 'Basic ' + btoa(user_cred.username + ':' + user_cred.password)
+        }
+      };
+
+      return Observable.fromPromise(axiosInstance.get(`/issues/${id.id}.json?include=attachments`, objResponse))
+        .catch(handleError)
+    })
+    .map((result) => {
+    return result && result.data ? getSelectedTask(result.data.issue) : {type : 'a'}
     });
 }
 
 export default combineEpics(
   getProjectMembersEpic,
-  EditTaskEpic
+  EditTaskEpic,
+  getTaskByIdEpic
 );

@@ -23,7 +23,7 @@ function getAllListOfTasksEpic($action, $state) {
         }
       };
 
-      return Observable.fromPromise(axiosInstance.get(`/issues.json?assigned_to_id=me`, objResponse))
+      return Observable.fromPromise(axiosInstance.get(`/issues.json?assigned_to_id=me&include=attachments`, objResponse))
         .catch(handleError)
     })
     .map((result) => (

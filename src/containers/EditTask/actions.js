@@ -20,3 +20,10 @@ export const editTask = (data) => ({
     data
   }
 });
+
+export const getTaskById = (id) => ({
+  type: actionTypes.GET_TASK_BY_ID,
+  payload: {
+    id
+  }
+});

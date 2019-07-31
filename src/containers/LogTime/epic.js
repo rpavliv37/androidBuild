@@ -11,6 +11,7 @@ import axiosInstance from '../../axios';
 import {decode as atob, encode as btoa} from 'base-64';
 import axios from 'axios';
 import { showMessage } from 'react-native-flash-message';
+import { getTaskById } from '../EditTask/actions';
 
 function logTimeEpic($action, $state) {
   return $action.ofType(MainTypes.LOG_TIME)
@@ -31,7 +32,8 @@ function logTimeEpic($action, $state) {
         message: "Something went wrong",
         type: "danger"
       })
-      return result && result.data ? {type : 'a'} : {type : 'a'}
+      const { main: { selected_task: { id } } } = $state.getState();
+      return result && result.data ? getTaskById(id) : {type : 'a'}
     });
 }
 

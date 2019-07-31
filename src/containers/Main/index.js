@@ -7,6 +7,7 @@ import Expand from 'react-native-simple-expand';
 import { calcSpentTime, getStatusesFromList, getProjectsFromList, filterTasks } from './utils';
 import { Button, Block, Text, Icon } from 'galio-framework';
 import { getTodaySpentTime, getAllListOfTasks, getSelectedTask, saveAllListOfTasks } from './actions';
+import { getTaskById } from '../EditTask/actions';
 import { logOut } from '../SignIn/actions';
 
 class Main extends React.Component {
@@ -60,7 +61,7 @@ handleBackButton = () => true; // disable back button
 	}
 
 	render() {
-		const { all_tasks, navigation, spent_time, getSelectedTask } = this.props;
+		const { all_tasks, navigation, spent_time, getSelectedTask, getTaskById } = this.props;
 		const statuses = (all_tasks && getStatusesFromList(all_tasks)) || [];
 		const projects = (all_tasks && getProjectsFromList(all_tasks)) || [];
     return (
@@ -172,7 +173,7 @@ handleBackButton = () => true; // disable back button
 					{all_tasks ? filterTasks(all_tasks, this.state.project, this.state.status).map((task) => (
 					<TouchableOpacity
 						onPress={() => {
-							getSelectedTask(task);
+							getTaskById(task.id);
 							navigation.navigate('TaskDetails');
 						}}
 						activeOpacity={.7}
@@ -298,6 +299,7 @@ export default connect(
 		getTodaySpentTime,
 		getSelectedTask,
 		logOut,
-		saveAllListOfTasks
+		saveAllListOfTasks,
+		getTaskById
   }
 )(Main);
