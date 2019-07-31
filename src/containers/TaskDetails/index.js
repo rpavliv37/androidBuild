@@ -127,8 +127,7 @@ class TaskDetails extends React.Component {
                       Description: {task.description}
                     </Text>
                   </Block>)}
-                  {(task.total_spent_hours !== '') &&
-                  (<Block
+                  <Block
                     style={{
                       paddingTop: 12,
                       paddingBottom: 12,
@@ -139,9 +138,9 @@ class TaskDetails extends React.Component {
                     <Text
                       color='white'
                     >
-                      Spent time: {Math.round(task.total_spent_hours * 100) / 100} h
+                       Spent time: {task.total_spent_hours ? Math.round(task.total_spent_hours * 100) / 100 : 0} h
                     </Text>
-                  </Block>)}
+                  </Block>
                 <Block
                   row
                   space='between'
