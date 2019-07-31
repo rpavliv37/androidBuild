@@ -3,6 +3,7 @@ import signIn from './SignIn/reducer';
 import main from './Main/reducer';
 import addNotification from './NotificationGenerator/reducer';
 import createNewTask from './CreateNewTask/reducer';
+import editTask from './EditTask/reducer';
 import { reducer as reduxReducer } from 'redux-form';
 
 export default combineReducers({
@@ -10,5 +11,6 @@ export default combineReducers({
     signIn,
     main,
     addNotification,
-    createNewTask
+    createNewTask,
+    editTask
 });

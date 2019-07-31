@@ -34,7 +34,7 @@ class Main extends React.Component {
 		const didBlurSubscription = this.props.navigation.addListener(
 			'didBlur',
 			() => {
-				this.props.saveAllListOfTasks({})
+				// this.props.saveAllListOfTasks({})
 				BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
 			}
 		);

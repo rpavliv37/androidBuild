@@ -12,6 +12,7 @@ import ForgotPass from './src/containers/ForgotPass';
 import Main from './src/containers/Main';
 import TaskDetails from './src/containers/TaskDetails';
 import CreateNewTask from './src/containers/CreateNewTask';
+import EditTask from './src/containers/EditTask';
 import reducers from './src/containers/reducers';
 import LogTime from './src/containers/LogTime';
 import FlashMessage from "react-native-flash-message";
@@ -63,6 +64,7 @@ const MainNavigator = createStackNavigator({
   ForgotPass: {screen: ForgotPass},
   TaskDetails: {screen: TaskDetails},
   CreateNewTask: {screen: CreateNewTask},
+  EditTask: {screen: EditTask},
   LogTime: {screen: LogTime}
 });
 

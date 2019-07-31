@@ -179,6 +179,7 @@ class TaskDetails extends React.Component {
                   }}
                   iconSize={15}
                   iconColor='white'
+                  onPress={() => navigate('EditTask')}
                 >
                   Edit
 					      </Button>

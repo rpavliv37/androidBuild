@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Picker, Text } from 'react-native';
 
 const renderDropdown = (props) => {
-  const { input: { onChange, value, ...inputProps }, children, getMembers, meta: { touched, error }, ...pickerProps } = props;
+  const { input: { onChange, value, ...inputProps }, children, getMembers, meta: { touched, error }, selectedValue, ...pickerProps } = props;
   return (
     <View>
       <Picker

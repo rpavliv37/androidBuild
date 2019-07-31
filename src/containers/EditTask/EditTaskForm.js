@@ -1,7 +1,6 @@
 import React from 'react';
-import { Picker, TouchableOpacity, ScrollView } from 'react-native';
-import { Input, Button, Card, Block, Text, Icon, Navbar } from 'galio-framework';
-import { DatePicker, Text as NativeBaseText } from 'native-base';
+import { Picker} from 'react-native';
+import { Button, Block } from 'galio-framework';
 import { Field, reduxForm } from 'redux-form';
 import { renderDropdown } from '../../components/Dropdown';
 import { renderField } from '../../components/FormField/renderField';
@@ -9,8 +8,9 @@ import { renderDatePicker } from '../../components/Datepicker';
 import { trackerList, statussesList, priorityList, severityList } from './dropdownOptions';
 import shortid from 'shortid';
 import { required } from '../validation';
+import _ from 'lodash';
 
-class CreateNewTaskForm extends React.Component {
+class EditTaskForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = { chosenDate: new Date() };
@@ -22,8 +22,8 @@ class CreateNewTaskForm extends React.Component {
   }
 
   render() {
-    const { handleSubmit, projects, getMembers, projectMembers, goTo} = this.props;
-    const _projectMembers = projectMembers || [];
+    const { handleSubmit, projects, getMembers, projectMembers, goTo, task, firstName, lastName } = this.props;
+    const { subject, assigned_to, priority, project, id, status, description, estimated_hours, start_date, tracker } = task;
     return (
         <Block
           style={{
@@ -39,7 +39,7 @@ class CreateNewTaskForm extends React.Component {
             component={renderDropdown}
             validate={[required]}
           >
-            <Picker.Item label='Tracker *' value='' />
+            <Picker.Item label={tracker.name} value={tracker.id} />
             {trackerList.map((item) => (
               <Picker.Item label={item.name} value={item.id} key={shortid.generate()} />
             ))}
@@ -54,6 +54,7 @@ class CreateNewTaskForm extends React.Component {
             name="subject"
             component={renderField}
             validate={[required]}
+            defaultValue={subject}
 				  />
           <Field
             props={{
@@ -69,11 +70,13 @@ class CreateNewTaskForm extends React.Component {
             }}
             name="description"
             component={renderField}
+            defaultValue={description}
 				  />
           <Field
             name='status_id'
             component={renderDropdown}
             validate={[required]}
+            selectedValue={status.id}
           >
             <Picker.Item label='Status *' value='' />
             {statussesList.map((item) => (
@@ -84,6 +87,7 @@ class CreateNewTaskForm extends React.Component {
             name='priority_id'
             component={renderDropdown}
             validate={[required]}
+            selectedValue={priority.id}
           >
             <Picker.Item label='Priority *' value='' />
             {priorityList.map((item) => (
@@ -97,6 +101,7 @@ class CreateNewTaskForm extends React.Component {
               getMembers: getMembers
             }}
             validate={[required]}
+            selectedValue={project.id}
           >
             <Picker.Item label='Project *' value='' />
             {projects && projects.map((item) => (
@@ -106,9 +111,10 @@ class CreateNewTaskForm extends React.Component {
           <Field
             name='assigned_to_id'
             component={renderDropdown}
+            selectedValue={assigned_to.id}
           >
-            <Picker.Item label='Assignee' value='' />
-            {_projectMembers.map((item) => (
+            <Picker.Item label='Assignee *' value='' />
+            {projectMembers && projectMembers.map((item) => (
               <Picker.Item label={item.user ? item.user.name : item.group.name} value={item.user ? item.user.id : item.group.id} key={shortid.generate()} />
             ))}
           </Field>
@@ -121,46 +127,6 @@ class CreateNewTaskForm extends React.Component {
               <Picker.Item label={item} value={item} key={shortid.generate()} />
             ))}
           </Field> */}
-          {/* <Field
-            props={{
-              placeholder: 'Pre-conditions',
-              rounded: true,
-              icon: 'subject',
-              family: 'MaterialIcons',
-              style: {
-                height: 100
-              },
-              multiline: true,
-              numberOfLines: 4
-            }}
-            name="issue_custom_field_values_13"
-            component={renderField}
-				  /> */}
-          {/* <Field
-            props={{
-              placeholder: 'Steps to reproduce',
-              rounded: true,
-              icon: 'foot',
-              family: 'Foundation',
-              style: {
-                height: 100
-              },
-              multiline: true,
-              numberOfLines: 4
-            }}
-            name="issue_custom_field_values_11"
-            component={renderField}
-				  /> */}
-          {/* <Field
-            props={{
-              placeholder: 'Parent task',
-              rounded: true,
-              icon: 'list-number',
-              family: 'Foundation'
-            }}
-            name="parent_issue_id"
-            component={renderField}
-				  /> */}
           <Field
             label='Start date'
             defaultDate={new Date()}
@@ -182,14 +148,9 @@ class CreateNewTaskForm extends React.Component {
             }}
             name="estimated_hours"
             component={renderField}
+            defaultValue={estimated_hours}
 				  />
-          {/* !!! */}
           {/* <Field
-            name='watchers'
-            component={renderMultiplySelect}
-          /> */}
-          {/* !!! */}
-          <Field
             props={{
               placeholder: 'Expected result',
               rounded: true,
@@ -202,36 +163,6 @@ class CreateNewTaskForm extends React.Component {
               numberOfLines: 4
             }}
             name="issue_custom_field_values_12"
-            component={renderField}
-				  />
-          {/* <Field
-            props={{
-              placeholder: 'Environment',
-              rounded: true,
-              icon: 'results',
-              family: 'Foundation',
-              style: {
-                height: 100
-              },
-              multiline: true,
-              numberOfLines: 4
-            }}
-            name="issue_custom_field_values_14"
-            component={renderField}
-				  /> */}
-          {/* <Field
-            props={{
-              placeholder: 'Actual result',
-              rounded: true,
-              icon: 'results',
-              family: 'Foundation',
-              style: {
-                height: 100
-              },
-              multiline: true,
-              numberOfLines: 4
-            }}
-            name="issue_custom_field_values_15"
             component={renderField}
 				  /> */}
           <Block
@@ -250,7 +181,7 @@ class CreateNewTaskForm extends React.Component {
                 width: 150
               }}
             >
-              Create Task
+              Save
 					</Button>
             <Button
               radius={27}
@@ -262,7 +193,7 @@ class CreateNewTaskForm extends React.Component {
               style={{
                 width: 150
               }}
-              onPress={() => goTo('Main')}
+              onPress={() => goTo('TaskDetails')}
             >
               Cancel
 					</Button>
@@ -274,5 +205,5 @@ class CreateNewTaskForm extends React.Component {
 
 
 export default reduxForm({
-  form: 'createTaskForm', initialValues: {start_date: new Date()}
-})(CreateNewTaskForm);
+  form: 'editTaskForm'
+})(EditTaskForm);
