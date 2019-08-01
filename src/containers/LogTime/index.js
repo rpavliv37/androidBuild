@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Block } from 'galio-framework';
 import LogTimeForm from './LogTimeForm';
 import { logTime } from './actions';
+import moment from 'moment';
 
 const date = new Date();
 
@@ -25,7 +26,7 @@ class LogTime extends React.Component {
     const parsedValues = { ...values };
     parsedValues.hours = parseFloat(parsedValues.hours);
     parsedValues.issue_id = parseInt(parsedValues.issue_id)
-    parsedValues.spent_on = new Date(parsedValues.spent_on).toLocaleDateString().split('.').reverse().join('-');
+    parsedValues.spent_on = moment(new Date(parsedValues.spent_on)).format('YYYY-MM-DD');
     console.log('parsedValues', parsedValues);
     _logTime(parsedValues);
     navigate('TaskDetails');

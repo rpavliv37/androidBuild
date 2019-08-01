@@ -8,7 +8,9 @@ import { renderField } from '../../components/FormField/renderField';
 import { renderDatePicker } from '../../components/Datepicker';
 import { trackerList, statussesList, priorityList, severityList } from './dropdownOptions';
 import shortid from 'shortid';
-import { required } from '../validation';
+import { required, greaterDate } from '../validation';
+
+const validateGreaterDate = greaterDate('start_date');
 
 class CreateNewTaskForm extends React.Component {
   constructor(props) {
@@ -171,6 +173,7 @@ class CreateNewTaskForm extends React.Component {
             label='Due date'
             component={renderDatePicker}
             name="due_date"
+            validate={[validateGreaterDate]}
           />
           <Field
             props={{

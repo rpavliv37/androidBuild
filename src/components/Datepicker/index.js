@@ -1,6 +1,8 @@
 import React from 'react';
 import { DatePicker, Text as NativeBaseText } from 'native-base';
 import { Block,  Icon } from 'galio-framework';
+import { Text } from 'react-native';
+import { showMessage, hideMessage } from 'react-native-flash-message';
 
 const renderDatePicker = (
   {
@@ -47,6 +49,11 @@ const renderDatePicker = (
         // value={value && new Date(value).toISOString()}
         disabled={false}
       />
+      {touched && error && (
+			showMessage({
+        message: error,
+        type: "danger",
+      }) )}
     </Block>
   );
 }
