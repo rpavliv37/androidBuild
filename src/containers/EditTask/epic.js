@@ -55,7 +55,7 @@ function EditTaskEpic($action, $state) {
     .map((result) => {
       const { main: { selected_task: { id } } } = $state.getState();
       console.log('id', id);
-      result && result.statusText ? showMessage({
+      result ? showMessage({
         message: 'Task was saved!',
         type: "success"
       }) : showMessage({
