@@ -59,12 +59,12 @@ export class SignInForm extends React.Component {
 						name="rememberMe"
 						component={renderCheckbox}
 					/>
-					<Text
+					{/* <Text
 						h6
 						onPress={() => goTo('ForgotPass')}
 					>
 						Lost password?
-					</Text>
+					</Text> */}
 				</Block>
 				<Button
           radius={27}
