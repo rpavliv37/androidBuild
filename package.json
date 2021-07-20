@@ -19,7 +19,7 @@
     "native-base": "^2.12.1",
     "react": "16.8.3",
     "react-dom": "^16.8.6",
-    "react-native": "0.60.4",
+    "react-native": "0.62.3",
     "react-native-animated-loader": "0.0.7",
     "react-native-collapsible": "^1.4.0",
     "react-native-cookies": "^3.3.0",
